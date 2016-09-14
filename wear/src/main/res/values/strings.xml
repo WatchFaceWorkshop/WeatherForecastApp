@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Wear</string>
+    <string name="watch_face_name">SunshineWatchFace</string>
 </resources>
