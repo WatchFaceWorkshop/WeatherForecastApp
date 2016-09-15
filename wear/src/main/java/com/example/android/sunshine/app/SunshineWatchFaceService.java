@@ -13,11 +13,14 @@ public class SunshineWatchFaceService extends CanvasWatchFaceService {
 
     private class Engine extends CanvasWatchFaceService.Engine implements TimerCallback {
         private SunshineTimer sunshineTimer;
+        private SunshineSyncService sunshineSyncService;
 
         @Override
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
             sunshineTimer = new SunshineTimer(this);
+            sunshineSyncService = new SunshineSyncService(getApplicationContext());
+            sunshineSyncService.requestWeatherForecast();
         }
 
         @Override
@@ -28,9 +31,10 @@ public class SunshineWatchFaceService extends CanvasWatchFaceService {
         }
 
         private void toggleTimerState(boolean visible) {
-            if (visible)
+            if (visible) {
                 sunshineTimer.start();
-            else
+                sunshineSyncService.requestWeatherForecast();
+            } else
                 sunshineTimer.reset();
         }
 
