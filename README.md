@@ -3,6 +3,10 @@ Sunshine
 
 Sunshine is the simple weather app.
 
+Presentation Link
+-----------------
+https://goo.gl/pwxY2T
+
 Build Instructions
 ------------------
 - Clone the repository
