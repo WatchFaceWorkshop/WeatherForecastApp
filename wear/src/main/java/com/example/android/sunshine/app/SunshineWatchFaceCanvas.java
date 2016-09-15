@@ -21,12 +21,8 @@ public class SunshineWatchFaceCanvas {
         this.inAmbientMode = inAmbientMode;
     }
 
-    public void draw(String formattedTime, Double temperatureHigh, Double temperatureLow) {
+    public void draw(String formattedTime) {
         clearCanvas();
-        drawFormattedTime(formattedTime);
-    }
-
-    private void drawFormattedTime(String formattedTime) {
         canvas.drawText(formattedTime, xCoordinateToStartPrintingFrom(formattedTime), bounds.centerY(), defaultPaint());
     }
 

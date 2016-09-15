@@ -11,16 +11,15 @@ public class SunshineWatchFaceService extends CanvasWatchFaceService {
         return new Engine();
     }
 
-    private class Engine extends CanvasWatchFaceService.Engine implements TimerCallback, SunshineSyncCallback {
+    private class Engine extends CanvasWatchFaceService.Engine implements TimerCallback {
         private SunshineTimer sunshineTimer;
         private SunshineSyncService sunshineSyncService;
-        private Double temperatureHigh = Double.NaN, temperatureLow = Double.NaN;
 
         @Override
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
             sunshineTimer = new SunshineTimer(this);
-            sunshineSyncService = new SunshineSyncService(getApplicationContext(), this);
+            sunshineSyncService = new SunshineSyncService(getApplicationContext());
             sunshineSyncService.requestWeatherForecast();
         }
 
@@ -43,7 +42,7 @@ public class SunshineWatchFaceService extends CanvasWatchFaceService {
         public void onDraw(Canvas canvas, Rect bounds) {
             super.onDraw(canvas, bounds);
             SunshineWatchFaceCanvas sunshineWatchFaceCanvas = new SunshineWatchFaceCanvas(canvas, bounds, getResources(), isVisible(), isInAmbientMode());
-            sunshineWatchFaceCanvas.draw(sunshineTimer.formattedTime(), temperatureHigh, temperatureLow);
+            sunshineWatchFaceCanvas.draw(sunshineTimer.formattedTime());
         }
 
         @Override
@@ -61,13 +60,6 @@ public class SunshineWatchFaceService extends CanvasWatchFaceService {
 
         @Override
         public void onTimeUpdate() {
-            invalidate();
-        }
-
-        @Override
-        public void onTemperatureFetched(Double high, Double low) {
-            this.temperatureHigh = high;
-            this.temperatureLow = low;
             invalidate();
         }
     }
